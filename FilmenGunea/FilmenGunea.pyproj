@@ -58,6 +58,7 @@
     <Content Include="app\templates\app\bozkatu.html" />
     <Content Include="app\templates\app\menua.html" />
     <Content Include="app\templates\app\options.html" />
+    <Content Include="app\templates\app\register.html" />
     <Content Include="app\templates\app\zaleak.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

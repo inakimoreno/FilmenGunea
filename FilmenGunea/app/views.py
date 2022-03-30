@@ -29,6 +29,17 @@ def bozkatu(request):
         }
     )
 
+def register(request):
+    """Renders the contact page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/register.html',
+        {
+            
+        }
+    )
+
 def zaleak(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
