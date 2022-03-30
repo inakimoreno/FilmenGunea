@@ -6,6 +6,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 from .models import Filma
+from . import forms
 
 def home(request):
     """Renders the home page."""
@@ -58,3 +59,6 @@ def menua(request):
              'message': message
          }
     )
+
+def login(request):
+    form = forms.LoginForm()

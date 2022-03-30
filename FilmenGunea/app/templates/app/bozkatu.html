@@ -1,5 +1,8 @@
 {% extends "app/options.html" %}
 
 <body>
-
+    {% block content %}
+    {{block.super}}
+    Bozkatzeko orria
+    {% endblock %}
 </body>
