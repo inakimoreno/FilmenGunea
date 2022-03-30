@@ -62,3 +62,7 @@ def menua(request):
 
 def login(request):
     form = forms.LoginForm()
+    if request.method == 'POST':
+        pass
+    else:
+        return render(request,'app/login.html',{'form':form})

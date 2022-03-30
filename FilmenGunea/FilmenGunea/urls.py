@@ -13,17 +13,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('bozkatu/', views.bozkatu, name='bozkatu'),
     path('zaleak/', views.zaleak, name='zaleak'),
-    path('login/',
-         LoginView.as_view
-         (
-             template_name='app/login.html',
-             extra_context=
-             {
-                 'title': 'Log in',
-                 'year' : datetime.now().year,
-             }
-         ),
-         name='login'),
+    path('login/',views.login, name='login'),
     path('register/', views.register, name='register'),
     path('menua/',views.menua, name='menua'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
