@@ -2,6 +2,51 @@
 <body>
     {% block content %}
     {{block.super}}
-    {{message}}
+    {% if user.is_authenticated %}
+    <table border="1">
+        <tr>
+            <th>Izenburua</th>
+            <th>Zuzendaria</th>
+            <th>Urtea</th>
+            <th>Generoa</th>
+            <th>Sinopsia</th>
+        </tr>
+        {% for film in films %}
+        <tr>
+            <td>
+                {{film.izenburua}}
+            </td>
+            <td>
+                {{film.zuzendaria}}
+            </td>
+            <td>
+                {{film.urtea}}
+            </td>
+            <td>
+                {{film.generoa}}
+            </td>
+            <td>
+                {{film.sinopsia}}
+            </td>
+        </tr>
+        <br/>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if films.has_previous %}
+            <a href="?page={{films.previous_page_number}}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page{{films.number}} of {{films.paginator.num_pages}}
+            </span>
+
+            {% if films.has_next %}
+            <a href="?page={{films.next_page_number}}">next</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
     {% endblock %}
 </body>

@@ -16,6 +16,6 @@ urlpatterns = [
     path('login/',views.login, name='login'),
     path('register/', views.register, name='register'),
     path('menua/',views.menua, name='menua'),
-    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('logout/', views.logout, name='logout'),
     path('admin/', admin.site.urls),
 ]

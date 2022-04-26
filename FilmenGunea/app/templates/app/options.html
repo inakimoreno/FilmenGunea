@@ -11,10 +11,10 @@
         {% block sidebar %}
         <ul>
             {% if user.is_authenticated %}
-            <li><a href="/menua/">Filmak ikusi</a></li>
+            <li><a href="/menua?page=1">Filmak ikusi</a></li>
             <li><a href="/bozkatu/">Bozkatu</a></li>
             <li><a href="/zaleak/">Zaleak</a></li>
-            <li><a href="">Logout</a></li>
+            <li><a href="/logout/">Logout</a></li>
             {% else %}
             <li><a href="/login/">Login</a></li>
             <li><a href="/register/">Register</a></li>

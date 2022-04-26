@@ -4,13 +4,14 @@ Definition of views.
 
 from datetime import datetime
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpRequest, HttpResponseRedirect
 from .models import Filma
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from . import forms
+from . import models
 
 def home(request):
-    """Renders the home page."""
-    assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/menua.html',
@@ -20,8 +21,6 @@ def home(request):
     )
 
 def bozkatu(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/bozkatu.html',
@@ -31,19 +30,28 @@ def bozkatu(request):
     )
 
 def register(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/register.html',
-        {
-            
-        }
-    )
+    form = forms.RegisterForm()
+    if request.method == 'POST':
+        usr = request.POST['usr']
+        pswd = request.POST['pswd']
+        pswd2 = request.POST['pswd2']
+        if pswd==pswd2:
+            user = authenticate(username=usr, password=pswd)
+            if user is None:
+                models.User.objects.create_user(username=usr, password=pswd)
+                form = forms.LoginForm()
+                return HttpResponseRedirect('../login')
+
+    else:
+        return render(
+            request,
+            'app/register.html',
+            {
+                'form':form,
+            }
+        )
 
 def zaleak(request):
-    """Renders the about page."""
-    assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/zaleak.html',
@@ -53,16 +61,34 @@ def zaleak(request):
     )
 
 def menua(request):
-    message = Filma.objects.get(pk=1)
+    films_list = Filma.objects.all()
+    paginator = Paginator(films_list,4)
+    page = request.GET['page']
+    try:
+        films = paginator.page(page)
+    except PageNotAnInteger:
+        films = paginator.page(1)
+    except EmptyPage:
+        films = paginator.page(paginator.num_pages)
     return render(request, 'app/menua.html',
          {
-             'message': message
+             'films': films
          }
     )
 
 def login(request):
     form = forms.LoginForm()
     if request.method == 'POST':
-        pass
+        usr = request.POST['usr']
+        pswd = request.POST['pswd']
+        user = authenticate(username=usr, password=pswd)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return render(request,'app/menua.html',{})
     else:
         return render(request,'app/login.html',{'form':form})
+
+def logout(request):
+    auth_logout(request)
+    return render(request,'app/menua.html',{})
