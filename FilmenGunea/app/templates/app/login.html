@@ -3,11 +3,15 @@
 <body>
 {% block content %}
     {{block.super}}
+    {% if user.is_authenticated %}
+    Ongi etorri {{user}}
+    {% endif %}
     <form action="." method="post">
         {% csrf_token %}
         {{form}}
-
+        {% if not user.is_authenticated %}
         <button type="submit" value="Login">Login</button>
+        {% endif %}
     </form>
 {% endblock %}
 </body>

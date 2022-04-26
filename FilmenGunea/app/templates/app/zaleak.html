@@ -4,5 +4,24 @@
     {% block content %}
     {{ block.super }}
     Zaleak orria test
+    <form action="." method="POST">
+        {% csrf_token %}
+        <select id="selectFilm" name="selectFilm">
+            {% for film in films %}
+            <option value="{{film.pk}}">{{film.izenburua}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Erakutsi zaleak</button>
+    </form>
+    {% if request.POST %}
+    {{selectedFilm.izenburua}}-ren zaleak:
+    <table border="1">
+        <tr><th>Zaleak</th></tr>
+        {% for bozk in bozkatzaileak %}
+            <tr><td>{{bozk.erabiltzailea_id}}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
     {% endblock %}
+
 </body>

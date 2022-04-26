@@ -4,5 +4,14 @@
     {% block content %}
     {{block.super}}
     Bozkatzeko orria
+    <form action="." method="POST">
+        {% csrf_token %}
+        <select id="selectFilm" name="selectFilm">
+            {% for film in films %}
+            <option value="{{film.pk}}">{{film.izenburua}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Bozkatu</button>
+    </form>
     {% endblock %}
 </body>
