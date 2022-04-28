@@ -3,7 +3,7 @@
 <body>
     {% block content %}
     {{ block.super }}
-    Zaleak orria test
+    <h2 class="text-success">Zaleak</h2>
     <form action="." method="POST">
         {% csrf_token %}
         <select id="selectFilm" name="selectFilm">
@@ -11,16 +11,18 @@
             <option value="{{film.pk}}">{{film.izenburua}}</option>
             {% endfor %}
         </select>
-        <button type="submit">Erakutsi zaleak</button>
+        <button type="submit" class="btn btn-outline-secondary btn-sm">Erakutsi zaleak</button>
     </form>
     {% if request.POST %}
-    {{selectedFilm.izenburua}}-ren zaleak:
-    <table border="1">
-        <tr><th>Zaleak</th></tr>
-        {% for bozk in bozkatzaileak %}
-            <tr><td>{{bozk.erabiltzailea_id}}</td></tr>
-        {% endfor %}
-    </table>
+    <strong>{{selectedFilm.izenburua}}</strong>-ren zaleak:
+    <div>
+        <table class="table table-striped" style="width: auto">
+            <tr><th>Zaleak</th></tr>
+            {% for bozk in bozkatzaileak %}
+                <tr><td>{{bozk.erabiltzailea_id}}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
     {% endif %}
     {% endblock %}
 

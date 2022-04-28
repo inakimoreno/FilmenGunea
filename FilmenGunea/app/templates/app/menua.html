@@ -2,15 +2,17 @@
 <body>
     {% block content %}
     {{block.super}}
-    {% if user.is_authenticated %}
-    <table border="1">
-        <tr>
-            <th>Izenburua</th>
-            <th>Zuzendaria</th>
-            <th>Urtea</th>
-            <th>Generoa</th>
-            <th>Sinopsia</th>
-        </tr>
+    {% if user.is_authenticated and 'page' in request.GET %}
+    <h2 class="text-success">Menua</h2>
+    <br/>
+    <table class="table table-striped">
+            <tr>
+                <th>Izenburua</th>
+                <th>Zuzendaria</th>
+                <th>Urtea</th>
+                <th>Generoa</th>
+                <th>Sinopsia</th>
+            </tr>
         {% for film in films %}
         <tr>
             <td>
@@ -25,17 +27,16 @@
             <td>
                 {{film.generoa}}
             </td>
-            <td>
+            <td style="width: 70%">
                 {{film.sinopsia}}
             </td>
         </tr>
-        <br/>
         {% endfor %}
     </table>
     <div class="pagination">
         <span class="step-links">
             {% if films.has_previous %}
-            <a href="?page={{films.previous_page_number}}">previous</a>
+            <a href="?page={{films.previous_page_number}}">Aurrekoa</a>
             {% endif %}
 
             <span class="current">
@@ -43,10 +44,12 @@
             </span>
 
             {% if films.has_next %}
-            <a href="?page={{films.next_page_number}}">next</a>
+            <a href="?page={{films.next_page_number}}">Hurrengoa</a>
             {% endif %}
         </span>
     </div>
+    {% else %}
+        <h5><strong>Ez zaude logeatuta</strong></h5>
     {% endif %}
     {% endblock %}
 </body>

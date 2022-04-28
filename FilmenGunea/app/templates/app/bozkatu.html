@@ -3,7 +3,7 @@
 <body>
     {% block content %}
     {{block.super}}
-    Bozkatzeko orria
+    <h2 class="text-success">Bozkatu zure gogoko pelikula</h2>
     <form action="." method="POST">
         {% csrf_token %}
         <select id="selectFilm" name="selectFilm">
@@ -11,7 +11,10 @@
             <option value="{{film.pk}}">{{film.izenburua}}</option>
             {% endfor %}
         </select>
-        <button type="submit">Bozkatu</button>
+        <button type="submit" class="btn btn-outline-secondary btn-sm">Bozkatu</button>
     </form>
+    <strong>{{ mezua_egoera }}</strong>
+    <br/>
+    <strong>{{mezua_filma}}</strong>
     {% endblock %}
 </body>
