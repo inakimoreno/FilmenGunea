@@ -12,6 +12,7 @@
                 <th>Urtea</th>
                 <th>Generoa</th>
                 <th>Sinopsia</th>
+                <th>Bozkak</th>
             </tr>
         {% for film in films %}
         <tr>
@@ -29,6 +30,9 @@
             </td>
             <td style="width: 70%">
                 {{film.sinopsia}}
+            </td>
+            <td>
+                {{film.bozkak}}
             </td>
         </tr>
         {% endfor %}

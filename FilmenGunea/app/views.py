@@ -37,6 +37,9 @@ def bozkatu(request):
             mezua_egoera = f"{Filma.objects.get(pk=request.POST['selectFilm']).izenburua} dagoeneko bozkatu duzu!"
         else:
             voter.gogokofilmak.add(request.POST['selectFilm'])
+            filma = Filma.objects.get(pk=request.POST['selectFilm'])
+            filma.bozkak+=1
+            filma.save()
             voter.save()
             mezua_egoera = "Bozkaketa ondo joan da"
             mezua_filma = f"Zure bozketa: {Filma.objects.get(pk=request.POST['selectFilm']).izenburua}"
